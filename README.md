@@ -12,7 +12,7 @@
 [worker] <br/>
 192.168.0.3(worker node ip 혹은 worker node domain name) <br/>
 
-4. 만일 ansible에서 작업을 할 host에 public key로 접근하는 것이 아니라면 추가적인 option 적어주어야합니다
+4. 만일 ansible에서 작업을 할 host에 public key로 접근하는 것이 아니라면 추가적인 option을 적어주어야합니다
 
 [master] <br/>
 192.168.0.2 ansible_connection=ssh ansible_ssh_user={user} ansible_ssh_pass={password} <br/>
