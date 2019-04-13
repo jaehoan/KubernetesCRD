@@ -7,17 +7,17 @@
 (python이 설치되어 있어야 ansible 작업이 가능)
 3. master node의 /etc/ansible/hosts에 다음과 같이 작성
 
-[master]
+[master] <br/>
 192.168.0.2(master node ip 혹은 master node domain name) <br/>
-[worker]
-192.168.0.3(worker node ip 혹은 worker node domain name)
+[worker] <br/>
+192.168.0.3(worker node ip 혹은 worker node domain name) <br/>
 
 4. 만일 ansible에서 작업을 할 host에 public key로 접근하는 것이 아니라면 추가적인 flag를 적어주어야함
 
-[master]
+[master] <br/>
 192.168.0.2 ansible_connection=ssh ansible_ssh_user={user} ansible_ssh_pass={password} <br/>
-[worker]
-192.168.0.3 ansible_connection=ssh ansible_ssh_user={user} ansible_ssh_pass={password}
+[worker] <br/>
+192.168.0.3 ansible_connection=ssh ansible_ssh_user={user} ansible_ssh_pass={password} <br/>
 
 5. master node 설정 <br/>
 ansible-playbook master-playbook.yml --key-file "awskube.pem" 수행
