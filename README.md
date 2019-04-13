@@ -20,8 +20,8 @@
 192.168.0.3 ansible_connection=ssh ansible_ssh_user={user} ansible_ssh_pass={password} <br/>
 
 5. master node 설정 <br/>
-ansible-playbook master-playbook.yml --key-file "awskube.pem" 명령어를 수행합니다
-(aws에서는 public key로 ssh 접속을 하기에 aws 인스턴스에 ansible로 설정한다면 --key-file 옵션이 필요합니다)
+ansible-playbook master-playbook.yml --key-file "awskube.pem" 명령어를 수행합니다 <br/>
+(aws에서는 public key로 ssh 접속을 하기에 aws 인스턴스에 ansible로 설정한다면 --key-file 옵션이 필요합니다) <br/>
 (접속에 필요한 public key file은 key 디렉토리에 있습니다)
 
 6. worker node 설정 <br/>
