@@ -1,4 +1,6 @@
-# KubernetesCRD
+# Kubernetes 구성
+선택한 CRI Engine : Docker
+선택한 CNI Plugin : Flanner
 
 1. master node에 apt-get install ansible 수행
 2. worker node에 apt-get install python 수행
