@@ -26,7 +26,7 @@ ansible-playbook master-playbook.yml --key-file "awskube.pem" 수행
 6. worker node 설정 <br/>
 ansible-playbook worker-playbook.yml --key-file "awskube.pem" 수행
 
-7. 성공적으로 작업이 끝나면 kubectl get nodes 명령어로 node 리스트가 정상적으로 뜨는지 확인
+7. 성공적으로 작업이 끝나면 sudo su 명령으로 root 계정으로 전환 후 kubectl get nodes 명령어로 node 리스트가 정상적으로 뜨는지 확인
 
 # AWS 인스턴스에서 작업 확인하기
 1. awskube.pem 공개키를 이용하여 ssh -i awskube.pem ubuntu@ec2-18-219-236-79.us-east-2.compute.amazonaws.com 접속
