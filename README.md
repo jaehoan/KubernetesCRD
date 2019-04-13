@@ -25,3 +25,10 @@ ansible-playbook master-playbook.yml --key-file "awskube.pem" 수행
 ansible-playbook worker-playbook.yml --key-file "awskube.pem" 수행
 
 7. 성공적으로 작업이 끝나면 kubectl get nodes 명령어로 node 리스트가 정상적으로 뜨는지 확인
+
+# AWS 인스턴스에서 작업 확인하기
+1. awskube.pem 공개키를 이용하여 ssh -i awskube.pem ubuntu@ec2-18-219-236-79.us-east-2.compute.amazonaws.com 접속
+2. sudo su로 root 계정 전환
+3. kubectl get nodes, kubectl get crds로 확인
+4. go CRD 프로그램 실행을 위해 환경변수 설정 -> export KUBECONFIG=$HOME/.kube/config
+5. /home/ubuntu 경로에 src 바이너리로 go 소스코드 실행 (command : ./src)
