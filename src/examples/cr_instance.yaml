@@ -1,0 +1,7 @@
+apiVersion: "welcome.group/v1"
+kind: Item
+metadata:
+  name: example1
+attribute:
+  sleepTime: 20
+  welcomeMsg: "Play with Kubernetes"

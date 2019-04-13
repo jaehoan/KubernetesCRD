@@ -1,0 +1,8 @@
+2019/04/13 21:51:57 [CONTROLLER] Create - Sleep Time: 10, Welcome Message: Welcome to Kubernetes World
+2019/04/13 21:55:17 [CONTROLLER] Before Update - Sleep Time: 10, Welcome Message: Welcome to Kubernetes World
+2019/04/13 21:55:17 [CONTROLLER] After  Update - Sleep Time: 30, Welcome Message: Play with Kubernetes
+2019/04/13 21:55:22 [CONTROLLER] Delete Namespace: default, Name: example1
+2019/04/13 22:10:43 [CONTROLLER] Create - Sleep Time: 10, Welcome Message: Welcome to Kubernetes World
+2019/04/13 22:14:03 [CONTROLLER] Before Update - Sleep Time: 10, Welcome Message: Welcome to Kubernetes World
+2019/04/13 22:14:03 [CONTROLLER] After  Update - Sleep Time: 30, Welcome Message: Play with Kubernetes
+2019/04/13 22:14:08 [CONTROLLER] Delete Namespace: default, Name: example1
