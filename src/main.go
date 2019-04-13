@@ -1,17 +1,16 @@
 package main
 
 import (
+	"client"
 	"context"
+	k8scrdcontroller "controller"
 	"fmt"
+	"log"
 	"os"
 	"time"
-	"log"
-	"client"
-	k8scrdcontroller "controller"
+	v1 "v1"
 
 	"k8s.io/client-go/tools/clientcmd"
-
-	crdexamplev1 "v1"
 
 	apiextensionsclient "k8s.io/apiextensions-apiserver/pkg/client/clientset/clientset"
 	apierrors "k8s.io/apimachinery/pkg/api/errors"
@@ -43,7 +42,7 @@ func main() {
 	log.SetOutput(fpLog)
 
 	// Init a CRD.
-	crd, err := crdexamplev1.CreateCustomResourceDefinition(apiextensionsClientSet)
+	crd, err := v1.CreateCustomResourceDefinition(apiextensionsClientSet)
 	if err != nil && !apierrors.IsAlreadyExists(err) {
 		panic(err)
 	}
@@ -64,31 +63,31 @@ func main() {
 	}
 
 	// Start CRD controller.
-	controller := k8scrdcontroller.ExampleController{
-		ExampleClient: exampleClient,
-		ExampleScheme: exampleScheme,
+	controller := k8scrdcontroller.Controller{
+		Client: exampleClient,
+		Scheme: exampleScheme,
 	}
 	ctx, cancelFunc := context.WithCancel(context.Background())
 	defer cancelFunc()
 	go controller.Run(ctx)
 
 	// Create a CRD client interface.
-	crdClient := client.NewCrdClient(exampleClient, exampleScheme, crdexamplev1.DefaultNamespace)
+	crdClient := client.NewCrdClient(exampleClient, exampleScheme, v1.DefaultNamespace)
 
 	// Code For CR Instance
 	// Create an instance of CRD.
 	instanceName := "example1"
 
-	exampleInstance := &crdexamplev1.Example{
+	exampleInstance := &v1.Item{
 		ObjectMeta: metav1.ObjectMeta{
 			Name: instanceName,
 		},
-		Spec: crdexamplev1.ExampleSpec{
-			Foo: "hello",
-			Bar: true,
+		Attribute: v1.ItemAttribute{
+			WelcomeMsg: "Welcome to Kubernetes World",
+			SleepTime:  10,
 		},
-		Status: crdexamplev1.ExampleStatus{
-			State:   crdexamplev1.StateCreated,
+		Status: v1.ItemStatus{
+			State:   v1.StateCreated,
 			Message: "Created but not processed yet",
 		},
 	}
@@ -106,7 +105,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println("CREATE Processed 94")
+	fmt.Println("CREATE")
 
 	// Get the list of CRs.
 	exampleList, err := crdClient.List(metav1.ListOptions{})
@@ -128,17 +127,17 @@ func main() {
 	resourceVersion := exampleGet.ObjectMeta.ResourceVersion
 
 	// Update an instance of CRD
-	exampleInstanceUpdate := &crdexamplev1.Example{
+	exampleInstanceUpdate := &v1.Item{
 		ObjectMeta: metav1.ObjectMeta{
-			Name: instanceName,
+			Name:            instanceName,
 			ResourceVersion: resourceVersion,
 		},
-		Spec: crdexamplev1.ExampleSpec{
-			Foo: "update Foo",
-			Bar: false,
+		Attribute: v1.ItemAttribute{
+			WelcomeMsg: "Play with Kubernetes",
+			SleepTime:  30,
 		},
-		Status: crdexamplev1.ExampleStatus{
-			State:   crdexamplev1.StateUpdated,
+		Status: v1.ItemStatus{
+			State:   v1.StateUpdated,
 			Message: "Updated but not processed yet",
 		},
 	}
@@ -149,7 +148,7 @@ func main() {
 		panic(err)
 	}
 
-	fmt.Println("UPDATE Processed 134")
+	fmt.Println("UPDATE")
 
 	// Get the list of CRs.
 	exampleUpdateList, err := crdClient.List(metav1.ListOptions{})
@@ -182,6 +181,5 @@ func main() {
 	sleepDurationDelete := 5 * time.Second
 	fmt.Printf("Sleep for %s...\n", sleepDurationDelete.String())
 	time.Sleep(sleepDurationDelete)
-
 
 }

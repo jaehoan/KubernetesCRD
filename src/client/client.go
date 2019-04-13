@@ -41,9 +41,9 @@ func NewClient(cfg *rest.Config) (*rest.RESTClient, *runtime.Scheme, error) {
 func WaitForInstanceProcessed(exampleClient *rest.RESTClient, name string) error {
 	fmt.Println("Wait for CRD instance processed...")
 	return wait.Poll(100*time.Millisecond, 20*time.Second, func() (bool, error) {
-		var instance crdexamplev1.Example
+		var instance crdexamplev1.Item
 		err := exampleClient.Get().
-			Resource(crdexamplev1.ExampleResourcePlural).
+			Resource(crdexamplev1.ItemResourcePlural).
 			Namespace(corev1.NamespaceDefault).
 			Name(name).
 			Do().Into(&instance)
@@ -61,21 +61,21 @@ func NewCrdClient(client *rest.RESTClient, scheme *runtime.Scheme, namespace str
 	return &CRDClient{
 		restClient:     client,
 		namespace:      namespace,
-		plural:         crdexamplev1.ExampleResourcePlural,
+		plural:         crdexamplev1.ItemResourcePlural,
 		parameterCodec: runtime.NewParameterCodec(scheme),
 	}
 }
 
-func (f *CRDClient) Create(obj *crdexamplev1.Example) (*crdexamplev1.Example, error) {
-	var result crdexamplev1.Example
+func (f *CRDClient) Create(obj *crdexamplev1.Item) (*crdexamplev1.Item, error) {
+	var result crdexamplev1.Item
 	err := f.restClient.Post().
 		Namespace(f.namespace).Resource(f.plural).
 		Body(obj).Do().Into(&result)
 	return &result, err
 }
 
-func (f *CRDClient) Update(name string, obj *crdexamplev1.Example) (*crdexamplev1.Example, error) {
-	var result crdexamplev1.Example
+func (f *CRDClient) Update(name string, obj *crdexamplev1.Item) (*crdexamplev1.Item, error) {
+	var result crdexamplev1.Item
 	err := f.restClient.Put().
 		Namespace(f.namespace).Resource(f.plural).
 		Name(name).Body(obj).Do().Into(&result)
@@ -89,16 +89,16 @@ func (f *CRDClient) Delete(name string, options *metav1.DeleteOptions) error {
 		Error()
 }
 
-func (f *CRDClient) Get(name string) (*crdexamplev1.Example, error) {
-	var result crdexamplev1.Example
+func (f *CRDClient) Get(name string) (*crdexamplev1.Item, error) {
+	var result crdexamplev1.Item
 	err := f.restClient.Get().
 		Namespace(f.namespace).Resource(f.plural).
 		Name(name).Do().Into(&result)
 	return &result, err
 }
 
-func (f *CRDClient) List(opts metav1.ListOptions) (*crdexamplev1.ExampleList, error) {
-	var result crdexamplev1.ExampleList
+func (f *CRDClient) List(opts metav1.ListOptions) (*crdexamplev1.ItemList, error) {
+	var result crdexamplev1.ItemList
 	err := f.restClient.Get().
 		Namespace(f.namespace).Resource(f.plural).
 		VersionedParams(&opts, f.parameterCodec).

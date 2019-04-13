@@ -6,7 +6,7 @@ import (
 )
 
 // ExampleController is a watch on resource create/update/delete events.
-type ExampleController struct {
-	ExampleClient *rest.RESTClient
-	ExampleScheme *runtime.Scheme
+type Controller struct {
+	Client *rest.RESTClient
+	Scheme *runtime.Scheme
 }

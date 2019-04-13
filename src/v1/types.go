@@ -8,10 +8,10 @@ import (
 )
 
 const (
-	ExampleResourcePlural string = "examples"
+	ItemResourcePlural string = "examples"
 	// GroupName is the group name used in this package.
-	GroupName        string = "jinghzhu.io"
-	ExampleCRDName   string = ExampleResourcePlural + "." + GroupName
+	GroupName        string = "welcome.group"
+	ExampleCRDName   string = ItemResourcePlural + "." + GroupName
 	version          string = "v1"
 	StateCreated     string = "Created"
 	StateUpdated     string = "Updated"
@@ -29,30 +29,30 @@ var (
 	AddToScheme   = SchemeBuilder.AddToScheme
 )
 
-// Example is the CRD. Use this command to generate deepcopy for it:
+// Item is the CRD. Use this command to generate deepcopy for it:
 // ./k8s.io/code-generator/generate-groups.sh deepcopy github.com/jinghzhu/k8scrd/client github.com/jinghzhu/k8scrd/apis "example:v1"
 // For more details of code-generator, please visit https://github.com/kubernetes/code-generator
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
-type Example struct {
+type Item struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
-	Spec              ExampleSpec   `json:"spec"`
-	Status            ExampleStatus `json:"status,omitempty"`
+	Attribute         ItemAttribute `json:"attribute"`
+	Status            ItemStatus    `json:"status,omitempty"`
 }
 
-type ExampleSpec struct {
-	Foo string `json:"foo"`
-	Bar bool   `json:"bar"`
+type ItemAttribute struct {
+	WelcomeMsg string `json:"welcomeMsg"`
+	SleepTime  int    `json:"sleepTime"`
 }
 
-type ExampleStatus struct {
+type ItemStatus struct {
 	State   string `json:"state,omitempty"`
 	Message string `json:"message,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
-type ExampleList struct {
+type ItemList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata"`
-	Items           []Example `json:"items"`
+	Items           []Item `json:"items"`
 }

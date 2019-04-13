@@ -24,8 +24,8 @@ func CreateCustomResourceDefinition(clientSet apiextensionsclient.Interface) (*a
 			Version: SchemeGroupVersion.Version,
 			Scope:   apiextensionsv1beta1.NamespaceScoped,
 			Names: apiextensionsv1beta1.CustomResourceDefinitionNames{
-				Plural: ExampleResourcePlural,
-				Kind:   reflect.TypeOf(Example{}).Name(),
+				Plural: ItemResourcePlural,
+				Kind:   reflect.TypeOf(Item{}).Name(),
 			},
 		},
 	}
@@ -70,8 +70,8 @@ func CreateCustomResourceDefinition(clientSet apiextensionsclient.Interface) (*a
 // addKnownTypes adds the set of types defined in this package to the supplied scheme.
 func addKnownTypes(scheme *runtime.Scheme) error {
 	scheme.AddKnownTypes(SchemeGroupVersion,
-		&Example{},
-		&ExampleList{},
+		&Item{},
+		&ItemList{},
 	)
 	metav1.AddToGroupVersion(scheme, SchemeGroupVersion)
 
